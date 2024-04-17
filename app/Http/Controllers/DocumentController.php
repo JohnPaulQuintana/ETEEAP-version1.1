@@ -97,6 +97,7 @@ class DocumentController extends Controller
         $dataToInsert['reciever_id'] = $firstDesitination->id; // eteeap
         $dataToInsert['course_id'] = $request->input('course_applying'); // eteeap
         $dataToInsert['educational_attainment'] = $request->input('HEA'); // eteeap
+        $dataToInsert['date_submitted'] = now(); // eteeap
 
 
         // Insert into the database
