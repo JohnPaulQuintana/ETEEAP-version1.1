@@ -25,6 +25,7 @@
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
                 data-tabs-toggle="#default-tab-content" role="tablist">
+               
                 @if (Auth::user()->isReceiver)
                     <li class="me-2" role="presentation">
                         <button class="inline-block p-4 border-b-2 rounded-t-lg" id="applicant-tab"
@@ -36,15 +37,7 @@
                         </button>
                     </li>
                 @endif
-                {{-- <li class="me-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="applicant-tab"
-                        data-tabs-target="#applicant" type="button" role="tab" aria-controls="applicant"
-                        aria-selected="false">
-
-                        {{ __('New Application') }} <span
-                            class="text-red-500">{{ isset($documents) ? count($documents) : 0 }}</span>
-                    </button>
-                </li> --}}
+                
                 <li class="me-2" role="presentation">
                     <button class="inline-block p-4 border-b-2 rounded-t-lg" id="returned-tab"
                         data-tabs-target="#returned" type="button" role="tab" aria-controls="returned"
@@ -62,8 +55,8 @@
                 <div class="bg-white rounded-lg shadow dark:bg-gray-700">
                     <div id="default-tab-content">
                         {{-- applicant tab --}}
-                        @if (Auth::user()->isReceiver)
-                            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="applicant" role="tabpanel"
+                        @if(Auth::user()->isReceiver)
+                        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="applicant" role="tabpanel"
                             aria-labelledby="applicant-tab">
 
                             <div class="mb-1  border-gray-200 dark:border-gray-700">
@@ -462,9 +455,12 @@
                                     </div>
                                 @elseif (isset($forwardedDocuments) && count($forwardedDocuments) === 0 && isset($documents) && count($documents) === 0)
                                     <div id="default-tab-content">
-                                        <div class="p-5">
-                                            <h1 class="text-md">There are no pending applications today.</h1>
-                                        </div>
+                                    <div
+                                        class="flex items-center justify-between p-4 md:p-5 rounded-t dark:border-gray-600">
+                                        <h3 class="text-lg font-semibold dark:text-white">
+                                        There are no applications to review at the moment.
+                                        </h3>
+                                    </div>
                                     </div>
                                 @else
                                     <div
@@ -477,8 +473,9 @@
                                 @endif
                             </div>
 
-                        </div>
+                        </div> 
                         @endif
+
                         {{-- returned tab --}}
                         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="returned" role="tabpanel"
                             aria-labelledby="returned-tab">
@@ -489,7 +486,8 @@
 
                                     @foreach ($forwardedDocuments as $fdName)
                                         <li class="me-2" role="presentation">
-                                            <button data-tabname="{{ str_replace(' ', '', $fdName->user->name) }}"
+                                            <button 
+                                                data-tabname="{{ str_replace(' ', '', $fdName->user->name) }}"
                                                 class="inline-block p-4 rounded-t-lg tab-btn tab-{{ str_replace(' ', '', $fdName->user->name) }}"
                                                 id="{{ str_replace(' ', '', $fdName->user->name) }}-tab"
                                                 data-tabs-target="#{{ str_replace(' ', '', $fdName->user->name) }}"
@@ -500,7 +498,7 @@
                                                 {{ $fdName->user->name }}
                                             </button>
 
-
+                                            
                                         </li>
                                     @endforeach
                                 </ul>
@@ -513,7 +511,8 @@
                                         @foreach ($forwardedDocuments as $forwarded)
                                             <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 tabcard tabcard-{{ str_replace(' ', '', $forwarded->user->name) }}"
                                                 data-card="{{ str_replace(' ', '', $forwarded->user->name) }}"
-                                                id="{{ str_replace(' ', '', $forwarded->user->name) }}" role="tabpanel"
+                                                id="{{ str_replace(' ', '', $forwarded->user->name) }}"
+                                                role="tabpanel"
                                                 aria-labelledby="{{ str_replace(' ', '', $forwarded->user->name) }}-tab">
 
 
@@ -783,13 +782,13 @@
 
                 var activeTabs = localStorage.getItem('active-tabs')
                 // alert(activeTabs)
-
+               
                 $(`.tabcard`).each(function() {
                     var ca = $(this).data('card')
                     console.log(ca, activeTabs)
                     if ($(this).hasClass(`tabcard-${activeTabs}`)) {
                         $(this).removeClass('hidden')
-                    } else {
+                    }else{
                         $(this).addClass('hidden')
                     }
                 })
@@ -800,10 +799,10 @@
                         $(this)
                             .removeClass(
                                 `inline-block p-4 rounded-t-lg tab-btn tab-${activeTabs} dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300`
-                            )
+                                )
                             .addClass(
                                 `inline-block p-4 rounded-t-lg tab-btn tab-${activeTabs} text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500`
-                            )
+                                )
                         $(this).attr('aria-selected', true);
 
 

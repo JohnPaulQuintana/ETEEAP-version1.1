@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Note;
-use App\Models\User;
-use App\Models\Status;
-use App\Models\History;
+use App\Models\AlertMessage;
 use App\Models\Document;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\History;
+use App\Models\MarkAsEndorsed;
+use App\Models\Note;
+use App\Models\Status;
+use App\Models\User;
+use App\Notifications\SendEmailNotification;
 
 // use Illuminate\Notifications\Notification;
 
-use App\Notifications\SendEmailNotification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Redirect;
 
 class DocumentController extends Controller
 {
@@ -38,7 +41,7 @@ class DocumentController extends Controller
             // ->where('status', ['approved', 'pending', 'in-review']) // Adjust the desired status
             ->first();
         if($existingDocument){
-            return response()->json(['status'=>"error", 'message' => "We found out that your already sent an application to us, please wait for the authorized personel to reviewed it."]);
+            return response()->json(['status'=>"error", 'message' => "We have noticed that you have already submitted an application to us. Please await review by the ETEEAP Department."]);
             // return "Document with ID already exists and has an approved status. Upload not allowed.";
         }
 
@@ -92,19 +95,26 @@ class DocumentController extends Controller
         // get the first destination
         $firstDesitination = User::where('isReceiver', 1)->first();
         $dataToInsert['reciever_id'] = $firstDesitination->id; // eteeap
+        $dataToInsert['course_id'] = $request->input('course_applying'); // eteeap
+        $dataToInsert['educational_attainment'] = $request->input('HEA'); // eteeap
 
 
         // Insert into the database
         $insertedDocs = Document::create($dataToInsert);
+        // forwarded to
+        MarkAsEndorsed::create(['document_id'=>$insertedDocs->id, 'receiver_id'=>$firstDesitination->id]);
         // history
-        History::create(['document_id' => $insertedDocs->id, 'status'=>'pending', 'notes' => "Your application is successfully sent"]);
+        History::create(['document_id' => $insertedDocs->id, 'status'=>'pending', 'notes' => "Your application has been successfully sent."]);
         Status::create(['document_id'=>$insertedDocs->id, 'status'=>'pending']);
 
-        Note::create(['status_id'=>$insertedDocs->id, 'notes'=>"Application is sumitted successfully, we will send a notification once its reviewed."]);
+        Note::create(['status_id'=>$insertedDocs->id, 'notes'=>"The application has been submitted successfully. We will notify you once it has been reviewed."]);
+
+        //create a alert message to eteeap department
+        AlertMessage::create(['reciever_id'=>$firstDesitination->id, 'sender_id'=>Auth::user()->id, 'notification'=>'A new application has been received. Please review at your earliest convenience.']);
         // return response()->json(['status'=>'success', 'message'=>"Your document's successfully submitted, hava a nice day!"]);
        
         // Get the administrator user
-        $notifyUser = User::where('role', 1)->first();
+        $notifyUser = User::where('role', 2)->first();
 
         // Set the time zone to Asia/Manila
         date_default_timezone_set('Asia/Manila');
@@ -137,6 +147,7 @@ class DocumentController extends Controller
          //for user 
          $mydocs = User::with(['documents.status','documents.status.notes', 'documents.tvids'])->where('id',Auth::user()->id)->get();
          // dd($mydocs);
-         return view('users.dashboard', ['documents' => $mydocs]);
+        //  return view('users.dashboard', ['documents' => $mydocs]);
+         return Redirect::route('user-dashboard')->with(['status' => 'success', 'message' => 'Rest assured that you will be notified promptly once a decision has been made regarding the application.!']);
     }
 }

@@ -34,12 +34,15 @@ class SendEmailNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $subject = isset($this->details['subject']) ? $this->details['subject'] : 'Notification: New ETEEAP Application Received - Action Required';
+
         return (new MailMessage)
-                    ->subject('Scheduled for Interview')
-                    ->attach(public_path('requirement/Qualification-and-Requirements.pdf'), [
-                        'as' => 'Qualification-and-Requirements.pdf',
-                        'mime' => 'application/pdf',
-                    ])
+        
+                    ->subject($subject)
+                    //->attach(public_path('requirement/Qualification-and-Requirements.pdf'), [
+                       // 'as' => 'Qualification-and-Requirements.pdf',
+                       // 'mime' => 'application/pdf',
+                    //])
                     ->greeting($this->details['greetings'])
                     ->line($this->details['body'])
                     ->line($this->details['body1'])
