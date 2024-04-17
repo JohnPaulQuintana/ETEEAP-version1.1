@@ -18,7 +18,7 @@ class InternalMessageController extends Controller
         //original 'user_id'=>$request->input('user_id')
         $lastSenderDepartment = LastSender::where('document_id', $request->input('user_document_id'))->latest()->first();
 
-        if (Auth::user()->id == $request->input('user_id') && $lastSenderDepartment->last_sender !== null) {
+        if (Auth::user()->id == $request->input('user_id') && optional($lastSenderDepartment)->last_sender !== null) {
             InternalMessage::create(['document_id'=>$request->input('user_document_id'),'user_id'=>$lastSenderDepartment->last_sender, 'sender_id'=>Auth::user()->id, 'message'=>$request->input('message'),'action_required'=>$request->input('action_required'), 'message_type'=>$request->input('message_type')]);
         }else{
             InternalMessage::create(['document_id'=>$request->input('user_document_id'),'user_id'=>$request->input('user_id'), 'sender_id'=>Auth::user()->id, 'message'=>$request->input('message'),'action_required'=>$request->input('action_required'), 'message_type'=>$request->input('message_type')]);
