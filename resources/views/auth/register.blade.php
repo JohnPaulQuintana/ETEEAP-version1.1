@@ -55,41 +55,20 @@
             <h5 class="text-xl font-medium text-textprimary dark:text-white">Create Account</h5>
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-textprimary dark:text-white">Name</label>
-                <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="John Doe" />
+                <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Full Name" />
                 @error('name')
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </div>
             <div>
                 <label for="email" class="block mb-2 text-sm font-medium text-textprimary dark:text-white">Email</label>
-                <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" />
+                <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Email" />
                 @error('email')
                     <span class="text-red-500">{{ $message }}</span>
                 @enderror
             </div>
 
-            <div>
-                <label for="course" class="block mb-2 text-sm font-medium text-textprimary dark:text-white">Course Applying</label>
-                <select name="course" id="course" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-                    <option value="" disabled selected>Select course</option>
-                    <option value="BSBA Marketing Management">Bachelor of Science in Business Administration major in Marketing Management</option>
-                    <option value="BSBA Financial Management">Bachelor of Science in Business Administration major in Financial Management</option>
-                    <option value="BSBA Human Resource Management">Bachelor of Science in Business Administration major in Human Resource Management</option>
-                    <option value="BSBA Operations Management">Bachelor of Science in Business Administration major in Operations Management</option>
-                    <option value="BS Hospitality Management">Bachelor of Science in Hospitality Management</option>
-                    <option value="BS Tourism Management">Bachelor of Science in Tourism Management</option>
-                    <option value="BSCS">Bachelor of Science in Computer Science</option>
-                    <option value="BEEd">Bachelor in Elementary Education</option>
-                </select>
-            </div>
-            <div>
-                <label for="education" class="block mb-2 text-sm font-medium text-textprimary dark:text-white">Highest Educational Attainment</label>
-                <select name="education" id="education" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
-                    <option value="" disabled selected>Select highest educational attainment</option>
-                    <option value="High School Graduate">High School Graduate</option>
-                    <option value="Some College">Some College</option>
-                </select>
-            </div>
+            
 
             <div>
                 <label for="password" class="block mb-2 text-sm font-medium text-textprimary dark:text-white">Password</label>

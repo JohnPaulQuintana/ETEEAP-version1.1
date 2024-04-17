@@ -249,7 +249,7 @@ class DepartmentController extends Controller
         Document::where('id', $request->input('document_id'))->update(['isForwarded' => 1]);
         History::create(['document_id' => $request->input('document_id'), 'status' => 'forwarded', 'notes' => "Your application has been forwarded to the " . $dept]);
         Status::where('id', $request->input('document_id'))->update(['status' => 'forwarded']);
-        Session::flash('pop-message', 'Your successfully sent this document to ' . $dept);
+        Session::flash('pop-message', 'You successfully sent this document to ' . $dept);
         return redirect()->back()->withInput();
     }
 }

@@ -42,7 +42,7 @@ class InterviewController extends Controller
 
         // Build the email notification details
         $details = [
-            'greetings' => "Dear ms/mr ".$notifyUser->name,
+            'greetings' => "Dear Ms/Mr ".$notifyUser->name,
             'body' => "Thank you for your interest in the ETEEAP. Please be advised that in line with your application in the program, you are being asked to report for an interview. Details are as follows:",
             'body1' => "",
             'body2' => "Date: ". $request->input('date'),
