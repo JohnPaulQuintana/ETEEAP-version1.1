@@ -181,7 +181,7 @@ class EteeapController extends Controller
     public function endorseApplication(Request $request){
         // dd($request);
         EndorseApplication::create(['document_id'=>$request->input('document_id'), 'receiver_id'=>$request->input('endorse_user')]);
-        AlertMessage::create(['reciever_id'=>$request->input('endorse_user'), 'sender_id'=>Auth::user()->id, 'notification'=>'A new application has been submitted for your consideration. Please review it at your earliest convenience.']);
+        AlertMessage::create(['reciever_id'=>$request->input('endorse_user'), 'sender_id'=>Auth::user()->id, 'notification'=>'New application received. Please review promptly.']);
         
         //Last department sender of application
         LastSender::create(['last_sender'=>Auth::user()->id, 'document_id'=>$request->input('document_id')]);

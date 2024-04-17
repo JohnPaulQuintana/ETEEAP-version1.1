@@ -66,7 +66,7 @@
                             </div>
                             <div class="mt-2 px-2">
                                 <span>Email : </span>
-                                <span id="d_email" class="text-blue-900 capitalize"></span>
+                                <span id="d_email" class="text-blue-900 capitalize" style="text-transform: lowercase;"></span>
                             </div>
                             <div class="mt-2 px-2">
                                 <span>Course Applied : </span>
@@ -293,7 +293,7 @@
                         </div>
 
                         <div class="border p-2 relative">
-                            <span class="absolute top-[-12px] bg-white font-bold">Applicant Document's</span>
+                            <span class="absolute top-[-12px] bg-white font-bold">Applicant Requirements</span>
                             <div class="mt-2">
                                 <iframe id="fileOpener" class="flex justify-center items-center" src=""
                                     width="100%" height="500px" frameborder="0">
@@ -666,7 +666,7 @@
                     console.log('no message')
                     messages += `<div class="bg-slate-100 rounded-md px-2 w-full py-13">
                                         <span class="flex justify-center items-center text-[12px] font-bold text-blue-900">
-                                            No internal message available
+                                            Message thread
                                         </span>
                                 </div>
                                 `
@@ -736,7 +736,7 @@
                     emsg = `
                     <div class="bg-slate-100 rounded-md px-2 w-full py-13">
                         <span class="flex justify-center items-center text-[12px] font-bold text-blue-900">
-                            No internal message available
+                            Message thread
                         </span>
                     </div>
                     `
@@ -852,7 +852,7 @@
                         if (result.isConfirmed) {
                             console.log(result)
                             Swal.fire({
-                                title: "Interview is successfully created!",
+                                title: "Interview scheduled and sent.",
                                 text: `${result.value.message}`,
                                 icon: "success"
                             });
