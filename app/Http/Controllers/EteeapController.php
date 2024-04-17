@@ -300,6 +300,35 @@ class EteeapController extends Controller
                             Notification::send($notifyUser, new SendEmailNotification($details));
                             
                             break;
+                        case 'on-hold':
+                            $notes = 'Your application is currently on hold. Thank you for your patience.';
+
+                           
+                            $details = [
+                                'subject' => "Notification: Your Application is On Hold.",
+                                'greetings' => "Hi " . $notifyUser->name,
+                                'body' => "We wanted to inform you that your application is currently on hold.",
+                                'body1' => "This may be due to additional information required or other reasons.",
+                                'body2' => "Date: " . date('Y-m-d'),
+                                'body3' => "Time: " . date('h:i A'),
+                                'body4' => "Rest assured, we will reach out to you as soon as there are updates on your application status.",
+                                'body5' => "",
+                                'body6' => "",
+                                'body7' => "",
+                                'body8' => "",
+                                'actiontext' => 'Go to Dashboard',
+                                'actionurl' => route('user-dashboard'),
+                                'lastline' => 'Thank you for your patience and understanding.',
+                                'lastline2' => '',
+                                'lastline3' => '',
+                                'lastline4' => '',
+                                'lastline5' => '',
+                            ];
+
+                            //send notification to a user 
+                            Notification::send($notifyUser, new SendEmailNotification($details));
+                            
+                            break;
                         
                         default:
                             # code...
