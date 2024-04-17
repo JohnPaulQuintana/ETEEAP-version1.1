@@ -14,7 +14,7 @@ class Document extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'reciever_id','course_id','educational_attainment','isForwarded' ,'loi', 'ce', 'cr', 'nce','hdt','f137_8','abcb','mc','nbc','ge','pc','rl','cgmc', 'cer'];
+    protected $fillable = ['user_id', 'reciever_id','course_id','educational_attainment','date_submitted','isForwarded' ,'loi', 'ce', 'cr', 'nce','hdt','f137_8','abcb','mc','nbc','ge','pc','rl','cgmc', 'cer'];
 
     public function user() : BelongsTo{
         return $this->belongsTo(User::class);
