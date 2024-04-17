@@ -13,6 +13,7 @@ use App\Notifications\SendEmailNotification;
 
 // use Illuminate\Notifications\Notification;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -97,7 +98,7 @@ class DocumentController extends Controller
         $dataToInsert['reciever_id'] = $firstDesitination->id; // eteeap
         $dataToInsert['course_id'] = $request->input('course_applying'); // eteeap
         $dataToInsert['educational_attainment'] = $request->input('HEA'); // eteeap
-        $dataToInsert['date_submitted'] = now(); // eteeap
+        $dataToInsert['date_submitted'] = Carbon::now(); // eteeap
 
 
         // Insert into the database
