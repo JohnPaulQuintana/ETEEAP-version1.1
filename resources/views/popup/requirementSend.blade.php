@@ -12,11 +12,37 @@
                 <i class="fa-sharp fa-regular fa-circle-check mx-auto mb-2 text-gray-400 w-12 h-12 text-5xl text-bgprimary"></i>
                
                 <h3 class="text-lg font-bold text-bgprimary dark:text-gray-400 uppercase">Upload your requirements to ETEEAP.</h3>
-                <span class="text-bgprimary"><i class="fa-solid fa-asterisk text-red-500"></i> REQUIRED TO SUBMIT</span>
+                
                 <div class="">
                    
                     <form class="max-w-lg mx-auto text-black h-115 overflow-auto" enctype="multipart/form-data" action="{{ route('store') }}" method="post">
                         @csrf
+
+                        {{-- added revision --}}
+                        <div class="mb-4 border-l-4 shadow-md bg-white p-1 py-2 mt-5">
+                            <label class="block mb-2 text-md text-left font-bold text-bgprimary" for="HEA">Course Applying : <i class="fa-solid fa-asterisk text-red-500"></i></label>
+                            <select name="course_applying" 
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                                id="course_applying" required>
+                                {{-- <option value="">Select Educational Attainment</option>
+                                <option value="HSG">High School Graduate</option>
+                                <option value="SC">Some College</option> --}}
+                            </select>
+                            
+                        </div>
+
+                        {{-- added revision --}}
+                        <div class="mb-4 border-l-4 shadow-md bg-white p-1 py-2 mt-5">
+                            <label class="block mb-2 text-md text-left font-bold text-bgprimary" for="HEA">Highest Educational Attainment : <i class="fa-solid fa-asterisk text-red-500"></i></label>
+                            <select name="HEA" 
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                                id="HEA" required onchange="handleChange(this)" >
+                                <option value="">Select Educational Attainment</option>
+                                <option value="HSG">High School Graduate</option>
+                                <option value="SC">Some College</option>
+                            </select>
+                            
+                        </div>
                         <div class="mb-4 border-l-4 shadow-md bg-white p-1">
                             <label class="block mb-2 text-md text-left font-bold text-bgprimary" for="loi">1.Letter of Intent: <i class="fa-solid fa-asterisk text-red-500"></i></label>
                             <input name="loi" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="loi" type="file" accept=".doc, .pdf, .png, .jpeg" required>
@@ -24,8 +50,7 @@
                         </div>
                         
                         <div class="mb-4 border-l-4 shadow-md bg-white p-1">
-                            <label class="block mb-2 text-md text-left font-bold text-bgprimary" for="ce">2.CHED - ETEEAP Application F
-                                orm: <i class="fa-solid fa-asterisk text-red-500"></i></label>
+                            <label class="block mb-2 text-md text-left font-bold text-bgprimary" for="ce">2.CHED - ETEEAP Application Form: <i class="fa-solid fa-asterisk text-red-500"></i></label>
                             <input name="ce" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="ce" type="file" accept=".doc, .pdf, .png, .jpeg" required>
                             <div class="mt-1 text-sm text-left uppercase text-bgprimary dark:text-gray-300" id="user_avatar_help">With 3 pieces of 1x1 picture </div>
                         </div>
@@ -42,15 +67,15 @@
                             <div class="mt-1 text-sm text-left uppercase text-bgprimary dark:text-gray-300" id="user_avatar_help">with at least 5 years of working experience </div>
                         </div>
                         
-                        <div class="mb-4 border-l-4 shadow-md bg-white p-1">
+                        <div class="mb-4 border-l-4 shadow-md bg-white p-1 tor">
                             <label class="block mb-2 text-md text-left font-bold text-bgprimary" for="hdt">5.Honorable Dismissal and TOR:</label>
-                            <input name="hdt" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="hdt" type="file" accept=".doc, .pdf, .png, .jpeg">
+                            <input name="hdt" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="hdt" type="file" accept=".doc, .pdf, .png, .jpeg" required>
                             <div class="mt-1 text-sm text-left uppercase text-bgprimary dark:text-gray-300" id="user_avatar_help">for undergraduate and for vocational courses </div>
                         </div>
                         
-                        <div class="mb-4 border-l-4 shadow-md bg-white p-1">
+                        <div class="mb-4 border-l-4 shadow-md bg-white p-1 form137">
                             <label class="block mb-2 text-md text-left font-bold text-bgprimary" for="f137_8">6.Form 137–A and Form 138:</label>
-                            <input name="f137_8" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="f137_8" type="file" accept=".doc, .pdf, .png, .jpeg">
+                            <input name="f137_8" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="f137_8" type="file" accept=".doc, .pdf, .png, .jpeg" required>
                             <div class="mt-1 text-sm text-left uppercase text-bgprimary dark:text-gray-300" id="user_avatar_help">for High School Graduate or PEPT/ALS Certificates </div>
                             <div class="mt-1 text-sm text-left uppercase text-bgprimary dark:text-gray-300" id="user_avatar_help">for those who took the acceleration test, must be DepEd certified true copy </div>
                         </div>
